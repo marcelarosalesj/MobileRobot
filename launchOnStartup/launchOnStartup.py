@@ -1,3 +1,4 @@
+# From here http://www.instructables.com/id/Raspberry-Pi-Launch-Python-script-on-startup/
 print "import libraries"
 import gpiozero
 from time import sleep
