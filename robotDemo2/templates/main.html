@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<head>
+   <title>Current Status</title>
+</head>
+
+<body>
+   <h1>Device Listing and Status</h1>
+
+  <p> Motor1
+    (<a href="/motor1/forward"> forward </a>) 
+    (<a href="/motor1/backward"> backward </a>) 
+  </p>
+  <p> Motor2
+    (<a href="/motor2/forward"> forward </a>) 
+    (<a href="/motor2/backward"> backward </a>) 
+  </p>
+  <p> Servo
+    (<a href="/servo/max"> max </a>) 
+    (<a href="/servo/mid"> mid </a>) 
+    (<a href="/servo/min"> min </a>) 
+  </p>
+  <p> Led
+    (<a href="/led/on"> on </a>) 
+    (<a href="/led/off"> off </a>) 
+  </p>
+
+
+
+ 
+
+   {% if message %}
+   <h2>{{ message }}</h2>
+   {% endif %}
+
+</body>
+</html>
