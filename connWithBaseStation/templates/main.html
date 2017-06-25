@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+   <title>Current Status</title>
+</head>
+
+<body>
+   <h1>Device Listing and Status</h1>
+
+   {% for device in devices %}
+   <p>The {{ devices[device].name }}
+   {% if devices[device].object.value == true %}
+      is currently on (<a href="/{{devices[device].object.pin}}/off">turn off</a>)
+   {% else %}
+      is currently off (<a href="/{{devices[device].object.pin}}/on">turn on</a>)
+   {% endif %}
+   </p>
+   {% endfor %}
+
+   {% if message %}
+   <h2>{{ message }}</h2>
+   {% endif %}
+
+</body>
+</html>
