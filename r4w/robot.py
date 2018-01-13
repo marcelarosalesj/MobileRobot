@@ -41,5 +41,19 @@ class Robot():
 		self.fr.stop()
 		self.fl.stop()
 
+	
+	def right(self):
+		self.fl.forward(1)
+		self.bl.forward(1)
+		self.fr.backward(1)
+		self.br.backward(1)
+		sleep(1)
+		self.stop()
 
-
+	def left(self):
+		self.fl.backward(1)
+		self.bl.backward(1)
+		self.fr.forward(1)
+		self.br.forward(1)
+		sleep(1)
+		self.stop()
