@@ -12,6 +12,9 @@ class Robot():
 	# front motors
 	fr = gpiozero.Motor(12,16) # front right, connected to rpi BCM 12 and 16
 	fl = gpiozero.Motor(6,5) # front left, connected to rpi BCM 6 and 5
+	opt = gpiozero.Button(17) # opt is the optocoupler that is measuring encoder in back-left wheel, the encoder has 20 holes 
+	counter = 0 # variable needed to count up to the 20 holes in the step function 
+	
 	print "created motors"
 
 	def __init__(self):
@@ -57,3 +60,25 @@ class Robot():
 		self.br.forward(1)
 		sleep(1)
 		self.stop()
+
+
+	
+	def step_forward(self):
+		self.counter = 0
+		def count_one():
+			self.counter = self.counter + 1
+			print " counter is ", self.counter
+
+		self.opt.when_pressed = count_one
+
+		self.forward(1)
+
+		while self.counter < 20:
+			sleep(1.0/1000000.0)
+		self.stop()
+
+	def steps_forward(self, num_steps=1):
+		for i in range(0,num_steps):
+			self.step_forward()
+
+
