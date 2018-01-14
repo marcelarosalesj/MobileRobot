@@ -45,13 +45,22 @@ class Robot():
 		self.fl.stop()
 
 	
-	def right(self):
-		self.fl.forward(1)
+	def right(self, degrees=90):
+		self.counter = 0
+                def count_one():
+                        self.counter = self.counter + 1
+                        print " counter is ", self.counter
+                self.opt.when_pressed = count_one
+		
+		# Turning Right Movement
+                self.fl.forward(1)
 		self.bl.forward(1)
 		self.fr.backward(1)
 		self.br.backward(1)
-		sleep(1)
-		self.stop()
+
+                while self.counter < 10:
+                        sleep(1.0/1000000.0)
+                self.stop()
 
 	def left(self):
 		self.fl.backward(1)
@@ -90,3 +99,4 @@ class Robot():
 	def steps_backward(self, num_steps=1):
 		for i in range(0, num_steps):
 			self.step("b")
+
