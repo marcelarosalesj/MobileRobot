@@ -1,5 +1,6 @@
 import gpiozero
 from time import sleep
+from time import time
 
 print "r4w movement library"
 
@@ -47,9 +48,24 @@ class Robot():
 	
 	def right(self, degrees=90):
 		self.counter = 0
+		if degrees == 90:
+			limit = 12
+		elif degrees == 180:
+			limit = 24
+		elif degrees == 270:
+			limit = 36
+		elif degrees == 360:
+			limit = 48
+		else:
+			limit = 12
+	
                 def count_one():
                         self.counter = self.counter + 1
                         print " counter is ", self.counter
+			if self.counter >= limit: # hardcoded number based on my current system 
+				self.stop()
+		
+		
                 self.opt.when_pressed = count_one
 		
 		# Turning Right Movement
@@ -57,18 +73,40 @@ class Robot():
 		self.bl.forward(1)
 		self.fr.backward(1)
 		self.br.backward(1)
-
+		
+		"""
                 while self.counter < 10:
                         sleep(1.0/1000000.0)
                 self.stop()
+		"""
 
-	def left(self):
+	def left(self, degrees=90):
+		self.counter = 0
+                if degrees == 90:
+                        limit = 12
+                elif degrees == 180:
+                        limit = 24
+                elif degrees == 270:
+                        limit = 36
+                elif degrees == 360:
+                        limit = 48
+                else:
+                        limit = 12
+
+                def count_one():
+                        self.counter = self.counter + 1
+                        print " counter is ", self.counter
+                        if self.counter >= limit: # hardcoded number based on my current system
+                                self.stop()
+
+
+                self.opt.when_pressed = count_one
 		self.fl.backward(1)
 		self.bl.backward(1)
 		self.fr.forward(1)
 		self.br.forward(1)
-		sleep(1)
-		self.stop()
+		#sleep(1)
+		#self.stop()
 
 
 	
@@ -76,7 +114,9 @@ class Robot():
 		self.counter = 0
 		def count_one():
 			self.counter = self.counter + 1
-			print " counter is ", self.counter
+			print " counter is ", self.counter, " - ", int(round(time() * 1000))
+			if self.counter >= 20:
+				self.stop()
 
 		self.opt.when_pressed = count_one
 
@@ -86,11 +126,13 @@ class Robot():
 			self.backward(1)
 		else:
 			self.forward(1) # for now the default is forward, this function may throw an error later
-
+		
+		"""
 		while self.counter < 20:
-			sleep(1.0/1000000.0)
+			#sleep(1.0/1000000000.0)
+			pass
 		self.stop()
-
+		"""
 
 	def steps_forward(self, num_steps=1):
 		for i in range(0,num_steps):
@@ -100,3 +142,5 @@ class Robot():
 		for i in range(0, num_steps):
 			self.step("b")
 
+
+rob = Robot()
