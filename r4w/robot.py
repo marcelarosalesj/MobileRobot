@@ -63,7 +63,7 @@ class Robot():
 
 
 	
-	def step_forward(self):
+	def step(self, direction):
 		self.counter = 0
 		def count_one():
 			self.counter = self.counter + 1
@@ -71,14 +71,22 @@ class Robot():
 
 		self.opt.when_pressed = count_one
 
-		self.forward(1)
+		if direction == "f":
+			self.forward(1)
+		elif direction == "b":
+			self.backward(1)
+		else:
+			self.forward(1) # for now the default is forward, this function may throw an error later
 
 		while self.counter < 20:
 			sleep(1.0/1000000.0)
 		self.stop()
 
+
 	def steps_forward(self, num_steps=1):
 		for i in range(0,num_steps):
-			self.step_forward()
+			self.step("f")
 
-
+	def steps_backward(self, num_steps=1):
+		for i in range(0, num_steps):
+			self.step("b")
